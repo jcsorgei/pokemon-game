@@ -18,4 +18,8 @@ export class LandingPageComponent implements OnInit {
     this.gameService.deckSizeChanged.emit(size);
   }
 
+  resetBoard(){
+    this.gameService.resetCurrentBoard();
+  }
+
 }

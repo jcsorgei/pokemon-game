@@ -17,24 +17,47 @@ export class GamePageComponent implements OnInit {
   currentTries: number = 0;
   best: number = 0;
   gameWon: boolean = false;
-  
+
   firstCardIndex: number = 0;
   secondCardIndex: number = 0;
   firstFlip: boolean = true;
 
-
   constructor(private gameService: GameService) {}
 
   ngOnInit(): void {
-    if (this.gameService.deckSize) {
-      this.deckSize = this.gameService.deckSize;
-    }
-    if (this.deckSize) {
-      this.initializeBoard();
-    }
+    this.setCurrentBoardState();
   }
 
+  setCurrentBoardState() {
+    let boardStateJson = localStorage.getItem('boardState');
 
+    if (boardStateJson == null){
+      if (this.gameService.deckSize) {
+        this.deckSize = this.gameService.deckSize;
+      }
+        this.initializeBoard();
+    }
+
+    if (boardStateJson != null) {
+      console.log("van json")
+      let boardState: {
+        board: { cardNumbers: number[]; cardStates: boolean[] };
+        currentTries: number;
+        best: number;
+        gameWon: boolean;
+        firstCardIndex: number;
+        secondCardIndex: number;
+        firstFlip: boolean;
+      } = JSON.parse(boardStateJson);
+      this.gameService.setCurrentBoardState(boardState);
+      this.board = boardState.board;
+      this.best = boardState.best;
+      this.currentTries = boardState.currentTries;
+      this.firstCardIndex = boardState.firstCardIndex;
+      this.secondCardIndex = boardState.secondCardIndex;
+      this.firstFlip = boardState.firstFlip;
+    }
+  }
 
   initializeBoard() {
     for (let i = 1; i <= this.deckSize; i++) {
@@ -78,27 +101,44 @@ export class GamePageComponent implements OnInit {
         this.board.cardNumbers[this.secondCardIndex]
       ) {
         this.best++;
-        if (this.isWinCondition()){
+        if (this.isWinCondition()) {
           this.gameWon = true;
         }
       }
     }
+    this.saveBoardState();
   }
 
-  isWinCondition(){
-    return !this.board.cardStates.some(flippedState => flippedState === false)
+  isWinCondition() {
+    return !this.board.cardStates.some(
+      (flippedState) => flippedState === false
+    );
   }
 
-  setDeckSize(size:number){
+  setDeckSize(size: number) {
     this.deckSize = size;
   }
 
   restartGame() {
+    this.gameService.resetCurrentBoard();
     this.currentTries = 0;
     this.firstFlip = true;
     this.best = 0;
     this.gameWon = false;
     this.board = { cardNumbers: [], cardStates: [] };
     this.initializeBoard();
+  }
+
+  saveBoardState() {
+    let boardState = {
+      board: this.board,
+      currentTries: this.currentTries,
+      best: this.best,
+      gameWon: this.gameWon,
+      firstCardIndex: this.firstCardIndex,
+      secondCardIndex: this.secondCardIndex,
+      firstFlip: this.firstFlip,
+    };
+    this.gameService.setCurrentBoardState(boardState);
   }
 }

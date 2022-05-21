@@ -20,7 +20,7 @@
               <li><a class="dropdown-item" (click)="setDeckSize(6)" style="cursor: pointer;">12 Cards - Medium</a></li>
               <li><a class="dropdown-item" (click)="setDeckSize(10)" style="cursor: pointer;">20 Cards - Hard</a></li>
             </ul>
-            <a routerLink="/game" class="btn btn-lg btn-warning mr-5">START NEW GAME</a>
+            <a routerLink="/game" (click)="resetBoard()" class="btn btn-lg btn-warning mr-5">START NEW GAME</a>
           </div>
         </div>
       </div>

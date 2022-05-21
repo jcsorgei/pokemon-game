@@ -2,6 +2,7 @@
     background-image: url("/assets/assets/PNG/background-game.png");
     background-size: cover;
     height: 100vh;
+    overflow-x: hidden;
 }
 .navbar{
     background-color: #3A5674;
