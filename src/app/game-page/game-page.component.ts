@@ -16,10 +16,12 @@ export class GamePageComponent implements OnInit {
   };
   currentTries: number = 0;
   best: number = 0;
-
+  gameWon: boolean = false;
+  
   firstCardIndex: number = 0;
   secondCardIndex: number = 0;
   firstFlip: boolean = true;
+
 
   constructor(private gameService: GameService) {}
 
@@ -73,14 +75,23 @@ export class GamePageComponent implements OnInit {
         this.board.cardNumbers[this.secondCardIndex]
       ) {
         this.best++;
+        if (this.isWinCondition()){
+          this.gameWon = true;
+        }
       }
     }
   }
+
+  isWinCondition(){
+    return !this.board.cardStates.some(flippedState => flippedState === false)
+  }
+
 
   restartGame() {
     this.currentTries = 0;
     this.firstFlip = true;
     this.best = 0;
+    this.gameWon = false;
     this.board = { cardNumbers: [], cardStates: [] };
     this.initializeBoard();
   }
