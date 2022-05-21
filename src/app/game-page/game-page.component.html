@@ -55,9 +55,9 @@
   <div class="gameBoard d-flex justify-content-center">
     <div class="row row-cols-lg-5">
       <div *ngFor="let cardNumber of board.cardNumbers; let i = index" class="col d-flex justify-content-center m-3">
-        <img *ngIf="board.cardStates[i]" style="cursor: pointer" (click)="flipCard(i)"
+        <img [hidden]="!board.cardStates[i]" style="cursor: pointer" (click)="flipCard(i)"
           src="/assets/assets/PNG/card-poke{{ cardNumber }}.png" alt="card image" />
-        <img *ngIf="!board.cardStates[i]" style="cursor: pointer" (click)="flipCard(i)"
+        <img [hidden]="board.cardStates[i]" style="cursor: pointer" (click)="flipCard(i)"
           src="/assets/assets/PNG/card-back.png" alt="card image" />
       </div>
     </div>
