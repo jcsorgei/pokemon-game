@@ -28,7 +28,7 @@
     <div class="row mt-3">
         <div class="col text-center text-warning fw-bold"><h3>Current tries: {{currentTries}}</h3></div>
         <div class="col text-center text-warning fw-bold"><h3>Best: {{best}}</h3></div>
-        <div class="col text-center"><button class="btn btn-warning btn-lg">Restart</button></div>
+        <div class="col text-center"><button (click)="restartGame()" class="btn btn-warning btn-lg">Restart</button></div>
     </div>
     <div class="gameBoard d-flex justify-content-center">
         <div class="row row-cols-lg-5">

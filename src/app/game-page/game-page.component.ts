@@ -4,13 +4,16 @@ import { GameService } from '../_services/game.service';
 @Component({
   selector: 'app-game-page',
   templateUrl: './game-page.component.html',
-  styleUrls: ['./game-page.component.css']
+  styleUrls: ['./game-page.component.css'],
 })
 export class GamePageComponent implements OnInit {
   numberOfCards: number = 10;
 
   deckSize: number | any = 4;
-  board: {cardNumbers: number[]; cardStates: boolean[]} = {cardNumbers: [], cardStates: []};
+  board: { cardNumbers: number[]; cardStates: boolean[] } = {
+    cardNumbers: [],
+    cardStates: [],
+  };
   currentTries: number = 0;
   best: number = 0;
 
@@ -22,53 +25,63 @@ export class GamePageComponent implements OnInit {
 
   ngOnInit(): void {
     this.deckSize = this.gameService.deckSize;
-    if (this.deckSize){
+    if (this.deckSize) {
       console.log(this.deckSize);
       this.initializeBoard();
     }
   }
 
-  initializeBoard(){
-    for (let i=1;i<=this.deckSize;i++) {
-      this.board.cardNumbers.push(i,i);
+  initializeBoard() {
+    for (let i = 1; i <= this.deckSize; i++) {
+      this.board.cardNumbers.push(i, i);
     }
-    for (let i=1;i<=this.deckSize;i++) {
-      this.board.cardStates.push(false,false);
+    for (let i = 1; i <= this.deckSize; i++) {
+      this.board.cardStates.push(false, false);
     }
 
     this.shuffleArray(this.board.cardNumbers);
     console.log(this.board.cardNumbers);
   }
 
-  shuffleArray(arr: number[]){
-    arr.sort(() => (Math.random() > .5) ? 1 : -1);
+  shuffleArray(arr: number[]) {
+    arr.sort(() => (Math.random() > 0.5 ? 1 : -1));
   }
 
-  flipCard(cardIndex: number){
-    console.log(this.firstFlip);
-    console.log(this.board.cardNumbers[cardIndex])
-    if (this.firstFlip){
+  flipCard(cardIndex: number) {
+    if (this.firstFlip) {
       this.firstFlip = false;
       this.firstCardIndex = cardIndex;
       this.board.cardStates[cardIndex] = true;
-    } else{
-      console.log("lefut")
+    } else {
+      this.currentTries++;
       this.firstFlip = true;
       this.secondCardIndex = cardIndex;
       this.board.cardStates[cardIndex] = true;
 
-      if (this.board.cardNumbers[this.firstCardIndex] !== this.board.cardNumbers[this.secondCardIndex]){
-        console.log("not equal")
+      if (
+        this.board.cardNumbers[this.firstCardIndex] !==
+        this.board.cardNumbers[this.secondCardIndex]
+      ) {
         setTimeout(() => {
           this.board.cardStates[this.firstCardIndex] = false;
           this.board.cardStates[this.secondCardIndex] = false;
         }, 1200);
       }
+
+      if (
+        this.board.cardNumbers[this.firstCardIndex] ===
+        this.board.cardNumbers[this.secondCardIndex]
+      ) {
+        this.best++;
+      }
     }
+  }
 
-
-
-    
-
+  restartGame() {
+    this.currentTries = 0;
+    this.firstFlip = true;
+    this.best = 0;
+    this.board = { cardNumbers: [], cardStates: [] };
+    this.initializeBoard();
   }
 }
