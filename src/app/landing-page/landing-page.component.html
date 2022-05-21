@@ -1,0 +1,29 @@
+<div id="landingPage" class="d-flex justify-content-center">
+  <div class="row justify-content-center align-items-center">
+    <div class="row text-center">
+      <div class="col-12">
+        <img src="/assets/assets/PNG/pokemon-title.png" alt="pokemon logo" />
+      </div>
+      <div class="row">
+        <div class="col-12 pt-3 m-3">
+          <div class="dropdown">
+            <button
+              class="btn btn-lg dropdown-toggle btn-info me-3"
+              id="dropdownMenuButton1"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              DECK SIZE
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+              <li><a class="dropdown-item" (click)="setDeckSize(4)" href="#">4 Cards - Easy</a></li>
+              <li><a class="dropdown-item" (click)="setDeckSize(10)" href="#">10 Cards - Medium</a></li>
+              <li><a class="dropdown-item" (click)="setDeckSize(20)" href="#">20 Cards - Hard</a></li>
+            </ul>
+            <button class="btn btn-lg btn-warning mr-5">START NEW GAME</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
