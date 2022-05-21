@@ -26,7 +26,9 @@ export class GamePageComponent implements OnInit {
   constructor(private gameService: GameService) {}
 
   ngOnInit(): void {
-    this.deckSize = this.gameService.deckSize;
+    if (this.gameService.deckSize) {
+      this.deckSize = this.gameService.deckSize;
+    }
     if (this.deckSize) {
       this.initializeBoard();
     }
