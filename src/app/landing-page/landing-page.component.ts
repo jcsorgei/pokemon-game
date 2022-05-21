@@ -1,4 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { GameService } from '../_services/game.service';
 
 @Component({
   selector: 'app-landing-page',
@@ -8,13 +9,13 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 export class LandingPageComponent implements OnInit {
 
   @Output() deckSizeChanged = new EventEmitter<number>();
-  constructor() { }
+  constructor(private gameService: GameService) { }
 
   ngOnInit(): void {
   }
 
   setDeckSize(size:number){
-    this.deckSizeChanged.emit(size);
+    this.gameService.deckSizeChanged.emit(size);
   }
 
 }
