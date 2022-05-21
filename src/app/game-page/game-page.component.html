@@ -1,44 +1,65 @@
 <div id="gamePage">
-    <nav class="navbar justify-content-center">
-        <div class="row">
-            <div class="col">
-                <div>
-                    <a routerLink="/" class="btn btn-lg btn-warning">HOME</a>
-                </div>
-            </div>
-            <div class="col">
-                <div class="dropdown">
-                    <button
-                      class="btn btn-lg dropdown-toggle btn-info"
-                      id="dropdownMenuButton1"
-                      data-bs-toggle="dropdown"
-                      aria-expanded="false"
-                    >
-                    DECK SIZE
-                    </button>
-                </div>
-            </div>
-            <div class="col"> 
-                <div>
-                    <a routerLink="/game" class="btn btn-lg btn-warning">START</a>
-                </div>
-            </div>
+  <nav class="navbar justify-content-center">
+    <div class="row">
+      <div class="col">
+        <div>
+          <a routerLink="/" class="btn btn-lg btn-warning">HOME</a>
         </div>
-    </nav>
-    <div class="row mt-3">
-        <div class="col text-center text-warning fw-bold"><h3>Current tries: {{currentTries}}</h3></div>
-        <div class="col text-center text-warning fw-bold"><h3>Best: {{best}}</h3></div>
-        <div class="col text-center"><button (click)="restartGame()" class="btn btn-warning btn-lg">Restart</button></div>
-    </div>
-    <div class="row mt-3">
-        <div *ngIf="gameWon" class="col text-center text-warning"><h2>Congratulations, You Won!</h2></div>
-    </div>
-    <div class="gameBoard d-flex justify-content-center">
-        <div class="row row-cols-lg-5">
-            <div *ngFor="let cardNumber of board.cardNumbers; let i = index" class="col d-flex justify-content-center m-3">
-                <img *ngIf="board.cardStates[i]" style="cursor: pointer;" (click)="flipCard(i)" src = '/assets/assets/PNG/card-poke{{cardNumber}}.png' alt="card image">
-                <img *ngIf="!board.cardStates[i]" style="cursor: pointer;" (click)="flipCard(i)" src = '/assets/assets/PNG/card-back.png' alt="card image">
-            </div>
+      </div>
+      <div class="col">
+        <div class="dropdown">
+          <button class="btn btn-lg dropdown-toggle btn-info" id="dropdownMenuButton1" data-bs-toggle="dropdown"
+            aria-expanded="false">
+            DECK SIZE
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+            <li>
+              <a class="dropdown-item" (click)="setDeckSize(4)" style="cursor: pointer">4 Cards - Easy</a>
+            </li>
+            <li>
+              <a class="dropdown-item" (click)="setDeckSize(10)" style="cursor: pointer">10 Cards - Medium</a>
+            </li>
+            <li>
+              <a class="dropdown-item" (click)="setDeckSize(20)" style="cursor: pointer;">20 Cards - Hard</a>
+            </li>
+          </ul>
         </div>
+      </div>
+      <div class="col">
+        <div>
+          <button (click)="restartGame()" class="btn btn-lg btn-warning">
+            START
+          </button>
+        </div>
+      </div>
     </div>
+  </nav>
+  <div class="row mt-3">
+    <div class="col text-center text-warning fw-bold">
+      <h3>Current tries: {{ currentTries }}</h3>
+    </div>
+    <div class="col text-center text-warning fw-bold">
+      <h3>Best: {{ best }}</h3>
+    </div>
+    <div class="col text-center">
+      <button (click)="restartGame()" class="btn btn-warning btn-lg">
+        Restart
+      </button>
+    </div>
+  </div>
+  <div class="row mt-3">
+    <div *ngIf="gameWon" class="col text-center text-warning">
+      <h2>Congratulations, You Won!</h2>
+    </div>
+  </div>
+  <div class="gameBoard d-flex justify-content-center">
+    <div class="row row-cols-lg-5">
+      <div *ngFor="let cardNumber of board.cardNumbers; let i = index" class="col d-flex justify-content-center m-3">
+        <img *ngIf="board.cardStates[i]" style="cursor: pointer" (click)="flipCard(i)"
+          src="/assets/assets/PNG/card-poke{{ cardNumber }}.png" alt="card image" />
+        <img *ngIf="!board.cardStates[i]" style="cursor: pointer" (click)="flipCard(i)"
+          src="/assets/assets/PNG/card-back.png" alt="card image" />
+      </div>
+    </div>
+  </div>
 </div>

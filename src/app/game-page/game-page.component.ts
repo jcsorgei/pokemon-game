@@ -28,10 +28,11 @@ export class GamePageComponent implements OnInit {
   ngOnInit(): void {
     this.deckSize = this.gameService.deckSize;
     if (this.deckSize) {
-      console.log(this.deckSize);
       this.initializeBoard();
     }
   }
+
+
 
   initializeBoard() {
     for (let i = 1; i <= this.deckSize; i++) {
@@ -86,6 +87,9 @@ export class GamePageComponent implements OnInit {
     return !this.board.cardStates.some(flippedState => flippedState === false)
   }
 
+  setDeckSize(size:number){
+    this.deckSize = size;
+  }
 
   restartGame() {
     this.currentTries = 0;
